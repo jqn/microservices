@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %}Ratings{% endblock %}
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ratings.css') }}">
+{% endblock %}
+
+{% block body %}
+<!-- Page Content -->
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Deal Ratings</h3>
+              <form id="deal-ratings-form">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Used/New</label>
+                  <select class="form-control" id="used-select">
+                    <option>Used</option>
+                    <option>New</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Year</label>
+                  <select class="form-control" id="year-select">
+                    {% for year in years|sort(attribute='0', reverse = True) %}
+                    <option>{{year[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Make {{makes[0]}}</label>
+                  <select class="form-control" id="make-select">
+                    {% for make in makes|sort(attribute='0') %}
+                    <option>{{make[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Model</label>
+                  <select class="form-control" id="model-select">
+                    {% for model in models|sort(attribute='0') %}
+                    <option>{{model[0]}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                  type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+      <div id="incredible"></div>
+      <div id="great"></div>
+      <div id="good"></div>
+      <div id="fair"></div>
+      <div id="unknown"></div>
+
+      <!--
+      <div class="col-md-6 py-1">
+        <div class="card">
+          <div class="card-body">
+            <canvas id="chLine"></canvas>
+          </div>
+        </div>
+      </div>
+       -->
+    </div>
+  </div>
+</div>
+<!-- /#wrapper -->
+
+{% endblock %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#deal-ratings-form').on('submit', function (event) {
+      $.ajax({
+          data: {
+            used: $('#used-select').val(),
+            year: $('#year-select').val(),
+            make: $('#make-select').val(),
+            model: $('#model-select').val(),
+          },
+          type: 'POST',
+          url: '/api/ratings',
+          dataType: 'JSON',
+          complete: function () {
+            // hide the preloader (progress bar)
+            // $('#form-response').html("");
+          },
+          success: function (data) {
+            var result = JSON.parse(data);
+            console.log(result.great_price)
+            // Display the returned data in browser
+            if (result.incredible && result.incredible.length !== 0) {
+              $("#incredible").html(result.incredible);
+            }
+            if (result.great_price && result.great_price.length !== 0) {
+              $("#great").html(result.great_price[0].make);
+
+            }
+            if (result.good_price && result.good_price.length !== 0) {
+              $("#good").html(result.good_price);
+
+            }
+            if (result.fair_price && result.fair_price.length !== 0) {
+              $("#fair").html(result.fair_price);
+
+            }
+            if (result.unknown && result.unknown.length !== 0) {
+              $("#fair").html(result.unknown);
+
+            }
+          },
+          error: function (xhr) {
+            console.log("error. see details below.");
+            console.log(xhr.status + ": " + xhr.responseJSON);
+          },
+        })
+        .done(function (data) {
+          // console.log("data", JSON.parse(data))
+          // $('#output').text(data.output).show();
+        });
+      event.preventDefault();
+    });
+  });
+</script>
+<script>
+  /* chart.js chart examples */
+
+  // chart colors
+  var colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
+
+  /* large line chart */
+  var chLine = document.getElementById("chLine");
+  var chartData = {
+    labels: ["S", "M", "T", "W", "T", "F", "S"],
+    datasets: [{
+        data: [589, 445, 483, 503, 689, 692, 634],
+        backgroundColor: 'transparent',
+        borderColor: colors[0],
+        borderWidth: 4,
+        pointBackgroundColor: colors[0]
+      }
+      // {
+      // data: [639, 465, 493, 478, 589, 632, 674],
+      // backgroundColor: colors[3],
+      // borderColor: colors[1],
+      // borderWidth: 4,
+      // pointBackgroundColor: colors[1]
+      // }
+    ]
+  };
+  if (chLine) {
+    new Chart(chLine, {
+      type: 'line',
+      data: chartData,
+      options: {
+        scales: {
+          xAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
+          }]
+        },
+        legend: {
+          display: false
+        },
+        responsive: true
+      }
+    });
+  }
+</script>
+{% endblock %}

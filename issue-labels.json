@@ -1,0 +1,17 @@
+[
+    { "name": "1 - design review", "color": "#159818" },
+    { "name": "2 - code review", "color": "#207de5" },
+    { "name": "3 - deployment", "color": "#5319e7" },
+    { "name": "3 - testing", "color": "#2E0854" },
+    { "name": "blemish", "color": "#f9d0c4" },
+    { "name": "bug", "color": "#fc2929" },
+    { "name": "enhancement", "color": "#84b6eb" },
+    { "name": "feedback requested", "color": "#49E20E" },
+    { "name": "on hold", "color": "#e6e6e6" },
+    { "name": "priority 1", "color": "#eb6420" },
+    { "name": "priority 2", "color": "#fbca04" },
+    { "name": "priority 3", "color": "#000000" },
+    { "name": "priority 4", "color": "#999999" },
+    { "name": "question", "color": "#cc317c" },
+    { "name": "super panic urgent", "color": "#b60205" }
+]
