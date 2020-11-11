@@ -2,16 +2,15 @@ from . import api
 import json
 import os
 import sys
-from flask import request
+from flask import request, jsonify
 import MySQLdb
 import itertools
 import pprint
 import json
 from .. import db
-from collections import namedtuple
 
 
-@api.route('v1.0/ratings/', methods=['GET', 'POST'])
+@api.route('v1.0/ratings', methods=['GET', 'POST'])
 def get_ratings():
     condition = request.form['condition']
     year = request.form['year']
@@ -25,26 +24,24 @@ def get_ratings():
     print("ratings")
     pprint.pprint(ratings)
 
-    # print(os.environ)
-
     return json.dumps(ratings)
 
 
-@api.route('v1.0/ratings/years', methods=['GET'])
+@api.route('v1.0/ratings/years', methods=['GET', 'POST'])
 def get_years():
-    condition_state = request.form['condition']
+    condition_val = request.form['condition']
 
     query = db.session.execute(
-        "SELECT DISTINCT year FROM vehicle_vehicle WHERE new_used= :val", {'val': condition_state})
+        "SELECT DISTINCT year FROM vehicle_vehicle WHERE new_used= :val", {'val': condition_val})
 
     # Use list comprehension to format the query result
     # from a list of tuples to a list of strings
     result = [r for (r,) in query]
 
-    return json.dumps({'years': result})
+    return jsonify({'years': result})
 
 
-@api.route('v1.0/ratings/makes', methods=['GET'])
+@api.route('v1.0/ratings/makes', methods=['GET', 'POST'])
 def get_makes():
     vehicle_condition = request.form['condition']
     vehicle_year = request.form['year']
@@ -56,10 +53,10 @@ def get_makes():
     # from a list of tuples to a list of strings
     result = [r for (r,) in query]
 
-    return json.dumps({'makes': result})
+    return jsonify({'makes': result})
 
 
-@api.route('v1.0/ratings/models', methods=['GET'])
+@api.route('v1.0/ratings/models', methods=['GET', 'POST'])
 def get_models():
     vehicle_condition = request.form['condition']
     vehicle_year = request.form['year']
@@ -72,7 +69,7 @@ def get_models():
     # from a list of tuples to a list of strings
     result = [r for (r,) in query]
 
-    return json.dumps({'models': result})
+    return jsonify({'models': result})
 
 
 class dealRating():
