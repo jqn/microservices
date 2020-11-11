@@ -1,7 +1,11 @@
 // Javascript
 $(document).ready(function () {
   $("#condition-select").change(function () {
-    console.log("select changes");
+    console.log("select changes", $("#condition-select").val());
+    if ($("#condition-select").val() === "default") {
+      $("#deal-ratings-form").trigger("reset");
+      return;
+    }
     $.ajax({
       data: {
         condition: $("#condition-select").val(),
