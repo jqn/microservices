@@ -2,10 +2,9 @@
 $(document).ready(function () {
   $("#condition-select").change(function () {
     console.log("select changes", $("#condition-select").val());
-    if ($("#condition-select").val() === "default") {
-      $("#deal-ratings-form").trigger("reset");
-      return;
-    }
+    $("#year-select").empty();
+    $("#make-select").empty();
+    $("#model-select").empty();
     $.ajax({
       data: {
         condition: $("#condition-select").val(),
@@ -15,6 +14,7 @@ $(document).ready(function () {
       dataType: "JSON",
       success: function (data) {
         console.log("data res", data);
+        $("#year-select").empty();
         for (i = 0; i < data.years.length; i++) {
           $("#year-select").append(
             '<option value="' +
@@ -34,6 +34,8 @@ $(document).ready(function () {
 
   $("#year-select").change(function () {
     console.log("select changes");
+    $("#make-select").empty();
+    $("#model-select").empty();
     $.ajax({
       data: {
         condition: $("#condition-select").val(),
@@ -63,6 +65,7 @@ $(document).ready(function () {
 
   $("#make-select").change(function () {
     console.log("select changes");
+    $("#model-select").empty();
     $.ajax({
       data: {
         condition: $("#condition-select").val(),
@@ -74,6 +77,7 @@ $(document).ready(function () {
       dataType: "JSON",
       success: function (data) {
         console.log("data res", data);
+        $("#model-select").empty();
         for (i = 0; i < data.models.length; i++) {
           $("#model-select").append(
             '<option value="' +
@@ -92,6 +96,7 @@ $(document).ready(function () {
   });
 
   $("#deal-ratings-form").on("submit", function (event) {
+    event.preventDefault();
     $.ajax({
       data: {
         condition: $("#condition-select").val(),
@@ -110,30 +115,21 @@ $(document).ready(function () {
         var result = JSON.parse(data);
         console.log(result.great_price);
         // Display the returned data in browser
-        if (result.incredible && result.incredible.length !== 0) {
-          $("#incredible").html(result.incredible);
-        }
-        if (result.great_price && result.great_price.length !== 0) {
-          $("#great").html(result.great_price[0].make);
-        }
-        if (result.good_price && result.good_price.length !== 0) {
-          $("#good").html(result.good_price);
-        }
-        if (result.fair_price && result.fair_price.length !== 0) {
-          $("#fair").html(result.fair_price);
-        }
-        if (result.unknown && result.unknown.length !== 0) {
-          $("#fair").html(result.unknown);
-        }
+        var title = `${$("#condition-select").val()} ${$(
+          "#year-select"
+        ).val()} ${$("#make-select").val()} ${$("#model-select").val()}`;
+
+        $("#results-title").text(title);
+        $("#incredible-count").text(result.incredible.length);
+        $("#great-count").text(result.great_price.length);
+        $("#good-count").text(result.good_price.length);
+        $("#fair-count").text(result.fair_price.length);
+        $("#unknown-count").text(result.unknown.length);
       },
       error: function (xhr) {
         console.log("error. see details below.");
         console.log(xhr.status + ": " + xhr.responseJSON);
       },
-    }).done(function (data) {
-      // console.log("data", JSON.parse(data))
-      // $('#output').text(data.output).show();
-    });
-    event.preventDefault();
+    }).done(function (data) {});
   });
 });
