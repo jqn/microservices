@@ -14,7 +14,6 @@ $(document).ready(function () {
       dataType: "JSON",
       success: function (data) {
         console.log("data res", data);
-        $("#year-select").empty();
         for (i = 0; i < data.years.length; i++) {
           $("#year-select").append(
             '<option value="' +
@@ -24,6 +23,15 @@ $(document).ready(function () {
               "</option>"
           );
         }
+        $("#year-select").prepend(
+          '<option value="default" selected>Select a year</option>'
+        );
+        $("#make-select").prepend(
+          '<option value="default" selected>Select a make</option>'
+        );
+        $("#model-select").prepend(
+          '<option value="default" selected>Select a model</option>'
+        );
       },
       error: function (xhr) {
         console.log("error. see details below.");
@@ -55,6 +63,12 @@ $(document).ready(function () {
               "</option>"
           );
         }
+        $("#make-select").prepend(
+          '<option value="default" selected>Select a make</option>'
+        );
+        $("#model-select").prepend(
+          '<option value="default" selected>Select a model</option>'
+        );
       },
       error: function (xhr) {
         console.log("error. see details below.");
@@ -87,6 +101,9 @@ $(document).ready(function () {
               "</option>"
           );
         }
+        $("#model-select").prepend(
+          '<option value="default" selected>Select a model</option>'
+        );
       },
       error: function (xhr) {
         console.log("error. see details below.");
