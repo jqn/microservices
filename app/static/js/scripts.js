@@ -1,6 +1,9 @@
 // Javascript
 $(document).ready(function () {
+  localStorage.clear();
+
   $("#reset-button").click(function () {
+    localStorage.clear();
     $("#deal-ratings-form").trigger("reset");
     $("#incredible-count").text(0);
     $("#great-count").text(0);
