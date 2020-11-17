@@ -32,7 +32,7 @@ def get_years():
     condition_val = request.form['condition']
 
     query = db.session.execute(
-        "SELECT DISTINCT year FROM vehicle_vehicle WHERE new_used= :val", {'val': condition_val})
+        "SELECT DISTINCT year FROM vehicle_vehicle WHERE new_used= :val ORDER BY year DESC", {'val': condition_val})
 
     # Use list comprehension to format the query result
     # from a list of tuples to a list of strings

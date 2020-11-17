@@ -49,8 +49,13 @@
                     <option value="" selected>Select a model</option>
                   </select>
                 </div>
-                <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                  type="submit">Search</button>
+                <div class="d-flex flex-row">
+                  <button class="btn btn-lg btn-secondary btn-login text-uppercase font-weight-bold mb-2 w-75"
+                    type="submit">Search</button>
+                  <button id="reset-button" type="button"
+                    class="btn btn-lg btn-danger btn-login text-uppercase font-weight-bold mb-2 ml-2
+                    w-25">Reset</button>
+                </div>
               </form>
             </div>
           </div>
@@ -73,23 +78,23 @@
                   <tbody>
                     <tr>
                       <td>Incredible Deals</td>
-                      <td id="incredible-count">0</td>
+                      <td id="incredible-count" class="text-primary" style="cursor: pointer;">0</td>
                     </tr>
                     <tr>
                       <td>Great Deals</td>
-                      <td id="great-count">0</td>
+                      <td id="great-count" class="text-primary" style="cursor: pointer;">0</td>
                     </tr>
                     <tr>
                       <td>Good Deals</td>
-                      <td id="good-count">0</td>
+                      <td id="good-count" class="text-primary" style="cursor: pointer;">0</td>
                     </tr>
                     <tr>
                       <td>Fair Deals</td>
-                      <td id="fair-count">0</td>
+                      <td id="fair-count" class="text-primary" style="cursor: pointer;">0</td>
                     </tr>
                     <tr>
                       <td>Other Deals</td>
-                      <td id="unknown-count">0</td>
+                      <td id="unknown-count" class="text-primary" style="cursor: pointer;">0</td>
                     </tr>
                   </tbody>
                 </table>
@@ -115,13 +120,8 @@
                   <th>Mileage</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="results-table">
                 <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
                 </tr>
               </tbody>
             </table>
