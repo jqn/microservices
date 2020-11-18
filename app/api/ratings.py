@@ -110,7 +110,7 @@ class dealRating():
 
         cursor.execute(
             """SELECT id, year, make, model, series, mileage FROM vehicle_vehicle WHERE new_used=%s
-            AND year=%s AND make=%s AND model=%s AND data_tier<=2 ORDER BY series ASC""", (condition, year, make, model))
+            AND year=%s AND make=%s AND model=%s AND data_tier<=2 AND mileage BETWEEN 1000 AND 10000 ORDER BY series ASC""", (condition, year, make, model))
 
         result = cursor.fetchall()
         cursor.close()
@@ -132,8 +132,6 @@ class dealRating():
             uniquekeys.append(k)
 
         trims_group = dict(zip(uniquekeys, groups))
-
-        # pprint.pprint(trims_group)
 
         return trims_group
 
@@ -181,7 +179,5 @@ class dealRating():
             object: the database connection object
 
         """
-        # return MySQLdb.connect('127.0.0.1', 'root', 'root', 'microservices')
         print(os.environ['DB_NAME'])
         return MySQLdb.connect(os.environ['DB_HOSTNAME'], os.environ['DB_USERNAME'], os.environ['DB_PASSWORD'], os.environ['DB_NAME'])
-        # return db
