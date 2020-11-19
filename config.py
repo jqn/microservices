@@ -1,4 +1,6 @@
 # config.py
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class Config(object):
@@ -7,7 +9,8 @@ class Config(object):
     """
 
     # Put any configurations here that are common across all environments
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
 class DevelopmentConfig(Config):
     """
