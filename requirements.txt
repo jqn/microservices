@@ -22,6 +22,7 @@ mysql-connector==2.2.9
 mysqlclient==2.0.1
 pycodestyle==2.6.0
 python-dateutil==2.8.1
+python-dotenv==0.15.0
 python-editor==1.0.4
 six==1.14.0
 sqlacodegen==2.3.0
