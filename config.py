@@ -1,4 +1,6 @@
 # config.py
+import os
+
 
 class Config(object):
     """
@@ -24,6 +26,12 @@ class ProductionConfig(Config):
     """
 
     DEBUG = False
+    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+        username=os.environ['DB_USERNAME'],
+        password=os.environ['DB_PASSWORD'],
+        hostname=os.environ['DB_HOSTNAME'],
+        databasename=os.environ['DB_NAME'],
+    )
 
 
 app_config = {
