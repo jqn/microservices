@@ -23,7 +23,7 @@ def create_app(config_name):
         app = Flask(__name__)
         app.config.update(
             SECRET_KEY=os.getenv('SECRET_KEY'),
-            SQLALCHEMY_DATABASE_URI="mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+            SQLALCHEMY_DATABASE_URI="mysql://{username}:{password}@{hostname}/{databasename}".format(
                 username=os.environ['DB_USERNAME'],
                 password=os.environ['DB_PASSWORD'],
                 hostname=os.environ['DB_HOSTNAME'],
