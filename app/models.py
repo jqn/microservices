@@ -6,14 +6,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login_manager
 
 
-class User(UserMixin, db.Model):
+class Employee(UserMixin, db.Model):
     """
-    Create an User table
+    Create an Employee table
     """
 
     # Ensures table will be named in plural and not in singular
     # as is the name of the model
-    __tablename__ = 'users'
+    __tablename__ = 'employees'
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(60), index=True, unique=True)
@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(60), index=True)
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     is_admin = db.Column(db.Boolean, default=False)
 
@@ -45,13 +46,30 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '<User: {}>'.format(self.username)
+        return '<Employee: {}>'.format(self.username)
 
 
 # Set up user_loader
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Employee.query.get(int(user_id))
+
+
+class Department(db.Model):
+    """
+    Create a Department table
+    """
+
+    __tablename__ = 'departments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
+    employees = db.relationship('Employee', backref='department',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return '<Department: {}>'.format(self.name)
 
 
 class Role(db.Model):
@@ -64,8 +82,8 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
-    users = db.relationship('User', backref='role',
-                            lazy='dynamic')
+    employees = db.relationship('Employee', backref='role',
+                                lazy='dynamic')
 
     def __repr__(self):
         return '<Role: {}>'.format(self.name)
@@ -115,10 +133,7 @@ class VehicleVehicle(db.Model):
     latitude = db.Column(db.Numeric(10, 8), nullable=False)
     longitude = db.Column(db.Numeric(11, 8), nullable=False)
     data_tier = db.Column(db.SmallInteger, nullable=False)
-    account_id = db.Column(db.ForeignKey('account_admin_account.id'),
+    account_id = db.Column(db.ForeignKey('employees.id'),
                            nullable=False, index=True)
     photo_count = db.Column(db.Integer, nullable=False)
     updated = db.Column(db.DateTime, nullable=False)
-
-    # account = db.relationship(
-    #     'AccountAdminAccount', primaryjoin='VehicleVehicle.account_id == AccountAdminAccount.id', backref='vehicle_vehicles')

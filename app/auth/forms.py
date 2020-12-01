@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Email, EqualTo
 from flask import request
 
 
-from ..models import User
+from ..models import Employee
 
 DOMAINS_ALLOWED = ['dealerslink.com', ]
 
@@ -32,7 +32,7 @@ class RegistrationForm(FlaskForm):
         if email_domain not in DOMAINS_ALLOWED:
             raise ValidationError(
                 "You're not allowed to register from this email provider.")
-        if User.query.filter_by(email=field.data).first():
+        if Employee.query.filter_by(email=field.data).first():
             raise ValidationError('Email is already in use.')
 
     def validate_username(self, field):

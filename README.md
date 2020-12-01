@@ -16,17 +16,17 @@ Step 1. Clone this repo
 
 Step 2. Move into the project root directory
 
-`$ cd flask_boilerplate`
+`$ cd microservices`
 
 Step 2. Create and activate a new virtual environment
 
-`$ mkvirtualenv flask_boilerplate`
+`$ mkvirtualenv microservices`
 
-`$ workon flask_boilerplate`
+`$ workon microservices`
 
 Step 4. Set your environment variables
 
-`$ vi ~/.virtualenvs/flask_boilerplate/bin/postactivate`
+`$ vi ~/.virtualenvs/microservices/bin/postactivate`
 
 ```bash
 #!/bin/bash
@@ -51,7 +51,7 @@ SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostnam
     username=<username>,
     password=<password>,
     hostname="localhost",
-    databasename="flask_boilerplate",
+    databasename="microservices",
 )
 ```
 
@@ -60,7 +60,7 @@ Step 7. Create a new database for this project
 ```
 $ mysql -u root
 
-$ mysql> CREATE DATABASE flask_boilerplate;
+$ mysql> CREATE DATABASE microservices;
 Query OK, 1 row affected (0.00 sec)
 ```
 
@@ -76,15 +76,31 @@ Step 10. Apply the migration to create the guest_users table in the database
 
 `$ flask db upgrade`
 
-Step 11. Start the server
+Step 11. Create an admin user.
+
+```
+$ flask shell
+
+>>> from app.models import Employee
+
+>>> from app import db
+
+>>> admin = Employee(email="admin@admin.com",username="admin",password="admin2016",is_admin=True)
+
+>>> db.session.add(admin)
+
+>>> db.session.commit()
+```
+
+Step 12. Start the server
 
 `$ flask run`
 
-Step 12. If installing new dependencies add them to requirements.txt and commit them to version control
+## Tips
+
+If installing new dependencies add them to requirements.txt and commit them to version control
 
 `$ pip freeze > requirements.txt`
-
-## Tips
 
 ### Externally Visible Server
 

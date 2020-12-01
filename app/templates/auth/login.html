@@ -1,6 +1,8 @@
-{% import "bootstrap/utils.html" as utils %} {% import "bootstrap/wtf.html" as
-wtf %} {% extends "base.html" %} {% block title %}Login{% endblock %} {% block
-body %}
+{% import "bootstrap/utils.html" as utils %} {% import "bootstrap/wtf.html" as wtf %} 
+{% extends "base.html" %} 
+{% block title %}Login{% endblock %} 
+{% block body %}
+{% include 'nav.html' %}
 <div class="content-section">
   <br />
   {{ utils.flashed_messages() }}

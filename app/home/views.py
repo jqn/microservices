@@ -21,3 +21,13 @@ def dashboard():
     Render the dashboard template on the /dashboard route
     """
     return render_template('home/dashboard.html', title="Dashboard")
+
+
+# admin dashboard view
+@home.route('/admin/dashboard')
+@login_required
+def admin_dashboard():
+    """
+    Render the dashboard template on the /dashboard route
+    """
+    return render_template('home/admin_dashboard.html', title="Dashboard")
