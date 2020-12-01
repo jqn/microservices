@@ -16,6 +16,7 @@ _mailinglist
 .idea/
 docs/_build/
 .vscode
+instance/
 
 # Coverage reports
 htmlcov/
@@ -23,3 +24,4 @@ htmlcov/
 .coverage.*
 *,cover
 *.wsgi
+
