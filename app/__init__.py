@@ -50,9 +50,6 @@ def create_app(config_name):
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
 
-    from .ratings import ratings as ratings_blueprint
-    app.register_blueprint(ratings_blueprint)
-
     from .admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
