@@ -43,6 +43,7 @@ def create_app(config_name):
     login_manager.login_view = "auth.login"
 
     migrate = Migrate(app, db)
+    migrate.init_app(app, db)
 
     from app import models
 
