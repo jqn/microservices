@@ -2,6 +2,10 @@
 
 {% extends "base.html" %}
 {% block title %}Admin Dashboard{% endblock %}
+<!-- Specific Page CSS goes HERE  -->
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock head_css%}
 {% block body %}
 {% include 'nav.html' %}
 <div class="intro-header">

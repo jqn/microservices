@@ -1,4 +1,4 @@
-# Resources
+# Templates
 
 https://www.codeply.com/go/3l6UhaQEhq/bootstrap-4-chartjs
 https://www.chartjs.org/docs/latest/
@@ -6,6 +6,8 @@ https://www.chartjs.org/docs/latest/
 [Bootstrap Code Snippets](https://startbootstrap.com/snippets/sign-in-split/)
 
 [Dashboard](https://startbootstrap.com/previews/sb-admin)
+
+[black dashboard](https://github.com/app-generator/flask-black-dashboard)
 
 ### Resources
 

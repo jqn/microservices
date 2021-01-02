@@ -8,8 +8,6 @@ from flask import request
 
 from ..models import Employee
 
-DOMAINS_ALLOWED = ['dealerslink.com', ]
-
 
 class RegistrationForm(FlaskForm):
     """
@@ -27,16 +25,11 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_email(self, field):
-        email_domain = request.form['email'].split('@')[-1]
-        print(email_domain)
-        if email_domain not in DOMAINS_ALLOWED:
-            raise ValidationError(
-                "You're not allowed to register from this email provider.")
         if Employee.query.filter_by(email=field.data).first():
             raise ValidationError('Email is already in use.')
 
     def validate_username(self, field):
-        if User.query.filter_by(username=field.data).first():
+        if Employee.query.filter_by(username=field.data).first():
             raise ValidationError('Username is already in use.')
 
 

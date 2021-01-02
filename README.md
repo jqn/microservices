@@ -12,7 +12,7 @@
 
 Step 1. Clone this repo
 
-`$ git clone https://github.com/jqn/flask-boilerplate.git`
+`$ git clone https://github.com/jqn/microservices.git`
 
 Step 2. Move into the project root directory
 

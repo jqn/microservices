@@ -1,6 +1,10 @@
-{% import "bootstrap/utils.html" as utils %} {% import "bootstrap/wtf.html" as wtf %} 
+{% import "bootstrap/utils.html" as utils %} 
+{% import "bootstrap/wtf.html" as wtf %} 
 {% extends "base.html" %} 
 {% block title %}Login{% endblock %} 
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock head_css%}
 {% block body %}
 {% include 'nav.html' %}
 <div class="content-section">
