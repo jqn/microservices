@@ -268,7 +268,7 @@
         <div class="col-lg-6 col-md-12">
           <div class="card ">
             <div class="card-header">
-              <h4 class="card-title"> Simple Table</h4>
+              <h4 class="card-title">Active EC2 Instances</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -276,118 +276,36 @@
                   <thead class=" text-primary">
                     <tr>
                       <th>
-                        Name
+                        ID
                       </th>
                       <th>
-                        Country
+                        Type
                       </th>
                       <th>
-                        City
+                        Public DNS
                       </th>
                       <th class="text-center">
-                        Salary
+                        State
                       </th>
                     </tr>
                   </thead>
                   <tbody>
+                  {% for  instance in instances %}
                     <tr>
                       <td>
-                        Dakota Rice
+                        {{instance.id}}
                       </td>
                       <td>
-                        Niger
+                        {{instance.type}}
                       </td>
                       <td>
-                        Oud-Turnhout
+                        {{instance.dns}}
                       </td>
                       <td class="text-center">
-                        $36,738
+                        {{instance.state}}
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                        Minerva Hooper
-                      </td>
-                      <td>
-                        Curaçao
-                      </td>
-                      <td>
-                        Sinaai-Waas
-                      </td>
-                      <td class="text-center">
-                        $23,789
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Sage Rodriguez
-                      </td>
-                      <td>
-                        Netherlands
-                      </td>
-                      <td>
-                        Baileux
-                      </td>
-                      <td class="text-center">
-                        $56,142
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Philip Chaney
-                      </td>
-                      <td>
-                        Korea, South
-                      </td>
-                      <td>
-                        Overland Park
-                      </td>
-                      <td class="text-center">
-                        $38,735
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Doris Greene
-                      </td>
-                      <td>
-                        Malawi
-                      </td>
-                      <td>
-                        Feldkirchen in Kärnten
-                      </td>
-                      <td class="text-center">
-                        $63,542
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Mason Porter
-                      </td>
-                      <td>
-                        Chile
-                      </td>
-                      <td>
-                        Gloucester
-                      </td>
-                      <td class="text-center">
-                        $78,615
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Jon Porter
-                      </td>
-                      <td>
-                        Portugal
-                      </td>
-                      <td>
-                        Gloucester
-                      </td>
-                      <td class="text-center">
-                        $98,615
-                      </td>
-                    </tr>
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>
