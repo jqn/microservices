@@ -105,3 +105,7 @@ If installing new dependencies add them to requirements.txt and commit them to v
 ### Externally Visible Server
 
 `$ flask run --host=0.0.0.0`
+
+### Features
+
+- AWS EC2
