@@ -2,6 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% extends "base.html" %} 
 {% block title %}Register{% endblock %} 
+{% block head_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock head_css%}
 {% block body %}
 <div class="content-section">
   <br />

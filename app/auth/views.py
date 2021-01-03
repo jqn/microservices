@@ -52,7 +52,7 @@ def login():
             if employee.is_admin:
                 return redirect(url_for('dashboard.admin_dashboard'))
             else:
-                return redirect(url_for('dashboard.dashboard'))
+                return redirect(url_for('dashboard.user_dashboard'))
 
         # when login details are incorrect
         else:

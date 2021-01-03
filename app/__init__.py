@@ -1,11 +1,12 @@
 # app/__init__.py
 
 # third-party imports
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt import JWT, jwt_required, current_identity
 
 import os
 
@@ -44,13 +45,25 @@ def create_app(config_name):
 
     migrate = Migrate(app, db)
 
-    from app import models
+    from app.models import Employee
+
+    def authenticate(email, password):
+        data = request.json
+        user = Employee.query.filter_by(email=data['email']).first()
+        if user is not None and user.verify_password(data['password']):
+            return user
+
+    def identity(payload):
+        user_id = payload['identity']
+        return Employee.query.filter_by(id=user_id).first()
+
+    jwt = JWT(app, authenticate, identity)
 
     from .dashboard import dashboard as dashboard_blueprint
     app.register_blueprint(dashboard_blueprint)
 
     from .api import api as api_blueprint
-    app.register_blueprint(api_blueprint, url_prefix='/api')
+    app.register_blueprint(api_blueprint, url_prefix='/api/v1.0')
 
     from .admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')

@@ -6,7 +6,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login_manager
 
 
-class Employee(UserMixin, db.Model):
+class BaseModel:
+    """
+    Base Model with common operations.
+    """
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
+
+class Employee(UserMixin, BaseModel, db.Model):
     """
     Create an Employee table
     """
@@ -72,7 +87,7 @@ class Department(db.Model):
         return '<Department: {}>'.format(self.name)
 
 
-class Role(db.Model):
+class Role(db.Model, BaseModel):
     """
     Create a Role table
     """
@@ -87,3 +102,20 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role: {}>'.format(self.name)
+
+
+class Todo(db.Model, BaseModel):
+    """
+    Create a Todos table
+    """
+    __tablename__ = 'todos'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    description = db.Column(db.String(200))
+    complete = db.Column(db.Boolean, default=False)
+    created_by = db.Column(db.String(64), db.ForeignKey('employees.email'))
+    user = db.relationship('Employee', backref=db.backref('todos', lazy=True))
+
+    def __repr__(self):
+        return '<Todo: {}>'.format(self.title)
