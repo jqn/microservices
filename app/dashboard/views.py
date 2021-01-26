@@ -42,7 +42,17 @@ def user_dashboard():
     return render_template('dashboard/user_dashboard.html', title="Dashboard", instances=active_ins)
 
 
+@dashboard.route('/dashboard/github')
+@login_required
+def admin_dashboard_github():
+    """
+    Render the dashboard template on the /dashboard route
+    """
+    return render_template('dashboard/github_dashboard.html', title="GitHub Dashboard")
+
 # admin dashboard view
+
+
 @dashboard.route('/admin/dashboard')
 @login_required
 def admin_dashboard():
