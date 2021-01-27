@@ -14,7 +14,7 @@
     <ul class="nav">
       {% if current_user.is_authenticated %}
       <li class="{% if 'index' in segment %} active {% endif %}">
-        <a href="/">
+        <a href="{{ url_for('dashboard.user_dashboard') }}">
           <i class="tim-icons icon-chart-pie-36"></i>
           <p>Dashboard</p>
         </a>
@@ -32,7 +32,7 @@
         </a>
       </li>
       <li class="{% if 'tables' in segment %} active {% endif %}">
-        <a href="/ui-tables.html">
+        <a href="{{ url_for('dashboard.dashboard_github') }}">
           <i class="tim-icons icon-puzzle-10"></i>
           <p>Table List</p>
         </a>

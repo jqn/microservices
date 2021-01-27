@@ -43,7 +43,7 @@ def create_app(config_name):
     login_manager.login_message = "You must be logged in to access this page."
     login_manager.login_view = "auth.login"
 
-    migrate = Migrate(app, db)
+    Migrate(app, db)
 
     from app.models import Employee
 
