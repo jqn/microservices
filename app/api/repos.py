@@ -1,14 +1,16 @@
 from . import api
 import os
+from flask import request
+
+token = os.getenv('GITHUB_TOKEN')
 
 
 @api.route('/repos/transfer', methods=['POST'])
 def get_user():
-    token = os.getenv('GITHUB_TOKEN')
 
-    owner = sys.argv[1]
-    repo = sys.argv[2]
-    new_owner = sys.argv[3]
+    owner = request.args.get("owner", "jqn")
+    repo = request.args.get("repo", "")
+    new_owner = request.args.get("new_owner", "")
 
     query_url = f"https://api.github.com/repos/{owner}/{repo}/transfer"
 

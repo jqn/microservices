@@ -37,6 +37,7 @@ def user_dashboard():
             "dns": instance.public_dns_name,
             "state": instance.state['Name']
         })
+
     """
     Render the dashboard template on the /dashboard route
     """
@@ -46,7 +47,7 @@ def user_dashboard():
 @dashboard.route('/dashboard/github')
 @login_required
 def dashboard_github():
-    query_url = f"https://api.github.com/users/jqn/repos?type=owner&sort=created&direction=desc&per_page=100"
+    query_url = f"https://api.github.com/users/jqn/repos?type=owner&sort=created&direction=desc&per_page=20"
 
     headers = {'Authorization': f'token {token}',
                'Accept': 'application/vnd.github.v3+json'}
@@ -63,7 +64,7 @@ def dashboard_github():
     repos = []
 
     for repo in r.json():
-        # print(repo.keys())
+        print(repo.keys())
         # repo_url = repo["html_url"]
         # repos.append({"url": repo_url})
         repos.append(repo)
