@@ -25,3 +25,6 @@ htmlcov/
 *,cover
 *.wsgi
 
+# migrations
+migrations/*
+

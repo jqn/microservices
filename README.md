@@ -41,15 +41,22 @@ Step 5. Install the project dependencies
 
 `$ pip install -r requirements.txt`
 
-Step 6. Create a new config.py in `instance/config.py` and add the following.
-Please replace the placeholders with the correct values.
+Step 6. Create a new instance directory and a config.py file `instance/config.py`
+
+```
+$ cd microservices
+$ mkdir instance
+$ touch instance/config.py
+```
+
+Add the following and please replace the placeholders with the appropiate values for your app.
 
 ```
 SECRET_KEY = 'yoursecretkey'
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-    username=<username>,
-    password=<password>,
+    username="username",
+    password="password",
     hostname="localhost",
     databasename="microservices",
 )
@@ -58,11 +65,13 @@ SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostnam
 Step 7. Create a new database for this project
 
 ```
-$ mysql -u root
+$ mysql -u root -p
 
 $ mysql> CREATE DATABASE microservices;
 Query OK, 1 row affected (0.00 sec)
 ```
+
+Type exit to leave the mysql shell
 
 Step 8. Initialze the database migration
 
@@ -76,7 +85,7 @@ Step 10. Apply the migration to create the guest_users table in the database
 
 `$ flask db upgrade`
 
-Step 11. Create an admin user.
+Step 11. Create an admin user. Please remember to use your own credentials as this repo is public.
 
 ```
 $ flask shell
@@ -91,6 +100,8 @@ $ flask shell
 
 >>> db.session.commit()
 ```
+
+Type exit() to leave the flask shell
 
 Step 12. Start the server
 
@@ -108,4 +119,4 @@ If installing new dependencies add them to requirements.txt and commit them to v
 
 ### Features
 
-- AWS EC2
+- BluePrints 

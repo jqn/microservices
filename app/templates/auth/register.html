@@ -6,13 +6,16 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock head_css%}
 {% block body %}
+{% include 'nav.html' %}
 <div class="content-section">
-  <br />
-  {{ utils.flashed_messages() }}
-  <div class="center">
-    <h1>Register for an account</h1>
+  <div class="container">
     <br />
-    {{ wtf.quick_form(form) }}
+    {{ utils.flashed_messages() }}
+    <div class="form-register">
+      <h1>Register for an account</h1>
+      <br />
+      {{ wtf.quick_form(form) }}
+    </div>
   </div>
 </div>
 {% endblock %}

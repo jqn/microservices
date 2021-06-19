@@ -8,13 +8,15 @@
 {% block body %}
 {% include 'nav.html' %}
 <div class="content-section">
-  <br />
-  {{ utils.flashed_messages() }}
-  <br />
-  <div class="center">
-    <h1>Login to your account</h1>
+  <div class="container">
     <br />
-    {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
+    {{ utils.flashed_messages() }}
+    <br />
+    <div class="form-login">
+      <h1>Login to your account</h1>
+      <br />
+      {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
+    </div>
   </div>
 </div>
 {% endblock %}
