@@ -39,7 +39,6 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-
         # check whether employee exists in the database and whether
         # the password entered matches the password in the database
         employee = Employee.query.filter_by(email=form.email.data).first()
@@ -53,11 +52,11 @@ def login():
                 return redirect(url_for('dashboard.admin_dashboard'))
             else:
                 return redirect(url_for('dashboard.user_dashboard'))
-
         # when login details are incorrect
         else:
             flash('Invalid email or password.')
-
+    else:
+        flash('Please enter valid credentials')
     # load login template
     return render_template('auth/login.html', form=form, title='Login')
 
