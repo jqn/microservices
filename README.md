@@ -125,3 +125,5 @@ If installing new dependencies add them to requirements.txt and commit them to v
 ### Features
 
 - BluePrints 
+- Active EC2 Instances card
+- Github repo list card
