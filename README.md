@@ -35,6 +35,11 @@ export FLASK_ENV=development
 export FLASK_CONFIG=development
 export FLASK_APP=run.py
 export FLASK_DEBUG=True
+# dashboard
+export AWS_ACCESS_KEY_ID=access_key_id
+export AWS_SECRET_ACCESS_KEY=secret_access_key
+# github
+export GITHUB_TOKEN=github_token
 ```
 
 Step 5. Install the project dependencies

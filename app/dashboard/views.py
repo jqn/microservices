@@ -5,22 +5,18 @@ from flask_login import login_required
 import os
 import boto3
 from . import dashboard
-import json
 import requests
-
-ec2_resource = boto3.resource(
-    'ec2',
-    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID", ""),
-    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY", ""),
-    region_name=os.getenv("AWS_DEFAULT_REGION", "us-east-1")
-)
-
-token = os.getenv('GITHUB_TOKEN')
 
 
 @dashboard.route('/dashboard')
 @login_required
 def user_dashboard():
+    ec2_resource = boto3.resource(
+        'ec2',
+        aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID", ""),
+        aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY", ""),
+        region_name=os.getenv("AWS_DEFAULT_REGION", "us-east-1")
+    )
     """
     Use the filter() method of the instances collection to retrieve
     all running EC2 instances.
@@ -47,6 +43,7 @@ def user_dashboard():
 @dashboard.route('/dashboard/github')
 @login_required
 def dashboard_github():
+    token = os.getenv('GITHUB_TOKEN', '')
     query_url = f"https://api.github.com/users/jqn/repos?type=owner&sort=created&direction=desc&per_page=20"
 
     headers = {'Authorization': f'token {token}',
