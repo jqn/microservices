@@ -55,8 +55,6 @@ def login():
         # when login details are incorrect
         else:
             flash('Invalid email or password.')
-    else:
-        flash('Please enter valid credentials')
     # load login template
     return render_template('auth/login.html', form=form, title='Login')
 
